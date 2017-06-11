@@ -16,7 +16,11 @@ _call_customers = []
 
 @app.route('/customers', methods=['GET'])
 def customers():
-    r = make_response(_call_customers)
+    try:
+        r = make_response(_call_customers)
+    except:
+        print("Error lol")
+        r = make_response([])
     r.headers['Content-Type'] = 'application/json'
     return r
 
@@ -98,13 +102,13 @@ def makeWebhookResult(req):
             #"data": {},
             "contextOut": [{"name":"purchasing-call-submission","lifespan":5,
                             "parameters":parameters}],
-            "source": "apiai-onlinestore-shipping"
+            "source": "apiai-maxisstore-postpaiddetails"
         }
     
     if req.get("result").get("action") == "call-customer":
         result = req.get("result")
         parameters = result.get("parameters")
-        
+        print(parameters)
         _call_customers.append(parameters)
         
         speech = "We will contact you shortly."
