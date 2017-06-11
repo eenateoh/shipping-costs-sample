@@ -37,10 +37,10 @@ def makeWebhookResult(req):
         data = {'MaxisOne plan 188':50, 'MaxisOne plan 158':40, 'MaxisOne plan 128':30, 'MaxisOne plan 98':20}
         shareline = {'MaxisOne plan 188':4, 'MaxisOne plan 158':3, 'MaxisOne plan 128':1, 'MaxisOne plan 98':1}
         
-        speech = "This plan is only " + str(cost[plan_chosen]) + "/month. " + \
+        speech = "This plan is only RM" + str(cost[plan_chosen]) + "/month. " + \
         "It comes with " + str(data[plan_chosen]) + "GB data and " + \
         "Unlimited calls & SMS to all network." + \
-        "You can also get up to " + str(shareline[plan_chosen]) + "MaxisONE Share Line at RM 48/mth per line."
+        "You can also get up to " + str(shareline[plan_chosen]) + " MaxisONE Share Line at RM 48/mth per line."
         
         print("Response")
         print(speech)
