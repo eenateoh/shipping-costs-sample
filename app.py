@@ -50,7 +50,7 @@ def makeWebhookResult(req):
             "speech": speech,
             "displayText": speech,
             #"data": {},
-            "contextOut": ["name":"purchasing","lifespan":5,"parameters":{"PostpaidPlan":plan_chosen}],
+            "contextOut": [{"name":"purchasing","lifespan":5,"parameters":{"PostpaidPlan":plan_chosen}}],
             #{"name":"weather", "lifespan":2, "parameters":{"city":"Rome"}}
             "source": "apiai-maxisstore-postpaiddetails"
         }
