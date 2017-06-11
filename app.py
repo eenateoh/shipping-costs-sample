@@ -42,7 +42,7 @@ def makeWebhookResult(req):
         "Unlimited calls & SMS to all network." + \
         "You can also get up to " + str(shareline[plan_chosen]) + "MaxisONE Share Line at RM 48/mth per line."
         
-        print("Response":)
+        print("Response")
         print(speech)
         
         return {
@@ -50,7 +50,7 @@ def makeWebhookResult(req):
             "displayText": speech,
             #"data": {},
             # "contextOut": [],
-            "source": "apiai-onlinestore-shipping"
+            "source": "apiai-maxisstore-postpaiddetails"
         }
         
         
