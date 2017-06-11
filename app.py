@@ -17,10 +17,10 @@ _call_customers = []
 @app.route('/customers', methods=['GET'])
 def customers():
     try:
-        r = make_response(_call_customers)
+        r = make_response({"customers":_call_customers})
     except:
         print("Error lol")
-        r = make_response([])
+        r = make_response("Empty list.")
     r.headers['Content-Type'] = 'application/json'
     return r
 
