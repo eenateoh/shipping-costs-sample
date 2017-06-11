@@ -18,11 +18,11 @@ _call_customers = []
 def customers():
     try:
         result = {
-        "customers": _call_customers
+        "customers": json.dumps(_call_customers)
         }
         r = make_response(result)
-    except:
-        print("Error lol")
+    except Exception as err:
+        print(err)
         r = make_response("Empty list.")
     r.headers['Content-Type'] = 'application/json'
     return r
