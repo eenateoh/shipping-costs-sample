@@ -17,9 +17,7 @@ _call_customers = []
 @app.route('/customers', methods=['GET'])
 def customers():
     try:
-        result = {
-        "customers": json.dumps(_call_customers)
-        }
+        result = json.dumps(_call_customers)
         r = make_response(result)
     except Exception as err:
         print(err)
