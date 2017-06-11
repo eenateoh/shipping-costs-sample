@@ -74,7 +74,7 @@ def makeWebhookResult(req):
             "source": "apiai-onlinestore-shipping"
         }
     
-     return {}
+    return {}
 
 
 if __name__ == '__main__':
@@ -83,3 +83,4 @@ if __name__ == '__main__':
     print "Starting app on port %d" % port
 
     app.run(debug=True, port=port, host='0.0.0.0')
+
