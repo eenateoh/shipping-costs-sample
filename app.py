@@ -61,7 +61,7 @@ def makeWebhookResult(req):
         parameters = result.get("parameters")
         customer_name = paramters.get("customer-email")
         customer_nric = parameters.get("customer-nric")
-        customer_mobile = paramters.get("customer-mobile")
+        customer_mobile = parameters.get("customer-mobile")
         customer_email = parameters.get("customer-email")
 
         speech = "Details entered are \n "+ \
