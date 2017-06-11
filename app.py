@@ -11,6 +11,14 @@ from flask import make_response
 # Flask app should start in global layout
 app = Flask(__name__)
 
+_call_customers = []
+
+
+@app.route('/customers', methods=['GET'])
+def customers():
+    r = make_response(_call_customers)
+    r.headers['Content-Type'] = 'application/json'
+    return r
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
@@ -55,20 +63,22 @@ def makeWebhookResult(req):
         }
         
         
-    if req.get("result").get("action") == "call-customer":
+    if req.get("result").get("action") == "call-customer-info":
         result = req.get("result")
         parameters = result.get("parameters")
         customer_name = parameters.get("customer-name")
         customer_nric = parameters.get("customer-nric")
         customer_mobile = parameters.get("customer-mobile")
         customer_email = parameters.get("customer-email")
+        plan_chosen = parameters.get("customer-plan")
 
         speech = "You've entered details as follows.. "
         speech2 = "Name\t: " + customer_name
         speech3 = "Id No\t: " + customer_nric 
         speech4 = "Mobile No\t: " + customer_mobile
         speech5 = "Email\t: " + customer_email
-        speech6 = "Would you like to submit?" 
+        speech6 = "Plan\t: " + plan_chosen
+        speech7 = "Would you like to submit?" 
 
         print("Response:")
         print(speech)
@@ -91,6 +101,21 @@ def makeWebhookResult(req):
             "source": "apiai-onlinestore-shipping"
         }
     
+    if req.get("result").get("action") == "call-customer":
+        result = req.get("result")
+        parameters = result.get("parameters")
+        
+        _call_customers.append(parameters)
+        
+        speech = "We will contact you shortly."
+        return {
+            "speech": speech,
+            "displayText": speech,
+            #"data": {},
+            "contextOut": [{"name":"purchasing","lifespan":0},{"name":"purchasing-call-submission","lifespan":0}],
+            "source": "apiai-maxisstore-postpaiddetails"
+        }
+        
     return {}
 
 
