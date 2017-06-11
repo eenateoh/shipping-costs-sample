@@ -17,7 +17,10 @@ _call_customers = []
 @app.route('/customers', methods=['GET'])
 def customers():
     try:
-        r = make_response({"customers":_call_customers})
+        result = {
+        "customers": _call_customers
+        }
+        r = make_response(result)
     except:
         print("Error lol")
         r = make_response("Empty list.")
