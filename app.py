@@ -40,8 +40,8 @@ def makeWebhookResult(req):
         speech = "This plan is only RM" + str(cost[plan_chosen]) + "/month. " + \
         "It comes with " + str(data[plan_chosen]) + "GB data and " + \
         "Unlimited calls & SMS to all network." + \
-        "You can also get up to " + str(shareline[plan_chosen]) + " MaxisONE Share Line at RM 48/mth per line. " +
-        "Subscribe?"
+        "You can also get up to " + str(shareline[plan_chosen]) + " MaxisONE Share Line at RM 48/mth per line. " + \
+        "Would you like to subscribe to this plan?"
         
         print("Response")
         print(speech)
