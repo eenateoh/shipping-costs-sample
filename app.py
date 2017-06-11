@@ -29,7 +29,7 @@ def webhook():
 
 def makeWebhookResult(req):
     if req.get("result").get("action") == "postpaid.details":
-        result = req.get("result"):
+        result = req.get("result")
         parameters = result.get("parameters")
         plan_chosen = parameters.get("PostpaidPlan")
         
@@ -37,9 +37,9 @@ def makeWebhookResult(req):
         data = {'MaxisOne plan 188':50, 'MaxisOne plan 158':40, 'MaxisOne plan 128':30, 'MaxisOne plan 98':20}
         shareline = {'MaxisOne plan 188':4, 'MaxisOne plan 158':3, 'MaxisOne plan 128':1, 'MaxisOne plan 98':1}
         
-        speech = "This plan is only " + str(cost[plan_chosen]) + "/month. " + 
-        "It comes with " + str(data[plan_chosen]) + "GB data and " + 
-        "Unlimited calls & SMS to all network." + 
+        speech = "This plan is only " + str(cost[plan_chosen]) + "/month. " + \
+        "It comes with " + str(data[plan_chosen]) + "GB data and " + \
+        "Unlimited calls & SMS to all network." + \
         "You can also get up to " + str(shareline[plan_chosen]) + "MaxisONE Share Line at RM 48/mth per line."
         
         print("Response":)
