@@ -59,7 +59,7 @@ def makeWebhookResult(req):
     if req.get("result").get("action") == "call-customer":
         result = req.get("result")
         parameters = result.get("parameters")
-        customer_name = paramters.get("customer-email")
+        customer_name = parameters.get("customer-name")
         customer_nric = parameters.get("customer-nric")
         customer_mobile = parameters.get("customer-mobile")
         customer_email = parameters.get("customer-email")
@@ -79,9 +79,7 @@ def makeWebhookResult(req):
             "displayText": speech,
             #"data": {},
             "contextOut": [{"name":"purchasing-call-submission","lifespan":5,
-                            "parameters":{
-                                "customer-email":customer_email, "customer-mobile":customer_mobile,
-                            "customer-name":customer_name, "customer-nric":customer_nric}}],
+                            "parameters":parameters}],
             "source": "apiai-onlinestore-shipping"
         }
     
