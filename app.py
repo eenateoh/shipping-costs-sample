@@ -56,14 +56,20 @@ def makeWebhookResult(req):
         }
         
         
-    if req.get("result").get("action") == "shipping.cost":
+    if req.get("result").get("action") == "call-customer":
         result = req.get("result")
         parameters = result.get("parameters")
-        zone = parameters.get("shipping-zone")
+        customer_name = paramters.get("customer-email")
+        customer_nric = parameters.get("customer-nric")
+        customer_mobile = paramters.get("customer-mobile")
+        customer_email = parameters.get("customer-email")
 
-        cost = {'Europe':100, 'North America':200, 'South America':300, 'Asia':400, 'Africa':500}
-
-        speech = "The cost of shipping to " + zone + " is " + str(cost[zone]) + " euros."
+        speech = "Details entered are \n "+ \
+        "Name: " + customer_name + "\n" + \
+        "Id No.: " + customer_nric  + "\n" + \
+        "Mobile No.: " + customer_mobile + "\n" + \
+        "Email: " + customer_email + "." + \
+        "Would you like to submit? Yes / No"
 
         print("Response:")
         print(speech)
@@ -72,7 +78,10 @@ def makeWebhookResult(req):
             "speech": speech,
             "displayText": speech,
             #"data": {},
-            # "contextOut": [],
+            "contextOut": [{"name":"purchasing-call-submission","lifespan":5,
+                            "parameters":{
+                                "customer-email":customer_email, "customer-mobile":customer_mobile,
+                            "customer-name":customer_name, "customer-nric":customer_nric}}],
             "source": "apiai-onlinestore-shipping"
         }
     
