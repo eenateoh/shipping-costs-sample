@@ -51,7 +51,6 @@ def makeWebhookResult(req):
             "displayText": speech,
             #"data": {},
             "contextOut": [{"name":"purchasing","lifespan":5,"parameters":{"PostpaidPlan":plan_chosen}}],
-            #{"name":"weather", "lifespan":2, "parameters":{"city":"Rome"}}
             "source": "apiai-maxisstore-postpaiddetails"
         }
         
@@ -65,12 +64,11 @@ def makeWebhookResult(req):
         customer_email = parameters.get("customer-email")
 
         speech = "You've entered details as follows.. "
-        speech2 = "Name: " + customer_name
-        speech3 = "Id No.: " + customer_nric 
-        speech4 = "Mobile No.: " + customer_mobile
-        speech5 = "Email: " + customer_email
+        speech2 = "Name\t: " + customer_name
+        speech3 = "Id No\t: " + customer_nric 
+        speech4 = "Mobile No\t: " + customer_mobile
+        speech5 = "Email\t: " + customer_email
         speech6 = "Would you like to submit?" 
-        speech7 ="- Yes / No"
 
         print("Response:")
         print(speech)
@@ -79,6 +77,7 @@ def makeWebhookResult(req):
             "speech": speech,
             #"displayText": speech,
             "messages": [
+                {"type":0, "speech":speech},
                 {"type":0, "speech":speech2},
                 {"type":0,"speech":speech3},
                 {"type":0,"speech":speech4},
