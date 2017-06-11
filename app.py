@@ -64,19 +64,28 @@ def makeWebhookResult(req):
         customer_mobile = parameters.get("customer-mobile")
         customer_email = parameters.get("customer-email")
 
-        speech = "Details entered are \n "+ \
-        "Name: " + customer_name + "\n" + \
-        "Id No.: " + customer_nric  + "\n" + \
-        "Mobile No.: " + customer_mobile + "\n" + \
-        "Email: " + customer_email + "." + \
-        "Would you like to submit? Yes / No"
+        speech = "You've entered details as follows.. "
+        speech2 = "Name: " + customer_name
+        speech3 = "Id No.: " + customer_nric 
+        speech4 = "Mobile No.: " + customer_mobile
+        speech5 = "Email: " + customer_email
+        speech6 = "Would you like to submit?" 
+        speech7 ="- Yes / No"
 
         print("Response:")
         print(speech)
 
         return {
             "speech": speech,
-            "displayText": speech,
+            #"displayText": speech,
+            "messages": [
+                {"type":0, "speech":speech2},
+                {"type":0,"speech":speech3},
+                {"type":0,"speech":speech4},
+                {"type":0,"speech":speech5},
+                {"type":0,"speech":speech6},
+                {"type":0,"speech":speech7}
+            ],
             #"data": {},
             "contextOut": [{"name":"purchasing-call-submission","lifespan":5,
                             "parameters":parameters}],
@@ -92,4 +101,5 @@ if __name__ == '__main__':
     print "Starting app on port %d" % port
 
     app.run(debug=True, port=port, host='0.0.0.0')
+
 
