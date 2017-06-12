@@ -12,7 +12,6 @@ from flask import make_response
 # Flask app should start in global layout
 app = Flask(__name__)
 
-_call_customers = []
 _connect_str = "dbname='customer' user='eena' port='5432'"+\
     "host='chatbotdbinstance.c6gisnki06mz.us-east-2.rds.amazonaws.com' " + \
                   "password='eenaeena'"
@@ -20,7 +19,7 @@ _connect_str = "dbname='customer' user='eena' port='5432'"+\
 @app.route('/customers', methods=['GET'])
 def customers():
     try:
-        conn = psycopg2.connect(connect_str)
+        conn = psycopg2.connect(_connect_str)
         cursor = conn.cursor()
         cursor.execute("""select * from call_customer""")
         rows = cursor.fetchall()
