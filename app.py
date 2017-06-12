@@ -28,6 +28,9 @@ def customers():
         r = make_response("Error connecting to database")
         print("Uh oh, can't connect. Invalid dbname, user or password?")
         print(e)
+    finally:
+    if conn is not None:
+        conn.close()
         
     r.headers['Content-Type'] = 'application/json'
     return r
