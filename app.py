@@ -28,9 +28,6 @@ def customers():
         r = make_response("Error connecting to database")
         print("Uh oh, can't connect. Invalid dbname, user or password?")
         print(e)
-    finally:
-        if conn is not None:
-            conn.close()
         
     r.headers['Content-Type'] = 'application/json'
     return r
@@ -151,9 +148,6 @@ def _insert_customer_to_postgres(parameters):
     except Exception as e:
         print("Uh oh, can't connect. Invalid dbname, user or password?")
         print(e)
-    finally:
-        if conn is not None:
-            conn.close()
 
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
