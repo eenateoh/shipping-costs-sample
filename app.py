@@ -12,16 +12,23 @@ from flask import make_response
 app = Flask(__name__)
 
 _call_customers = []
-
+_connect_str = "dbname='customer' user='eena' port='5432'"+\
+    "host='chatbotdbinstance.c6gisnki06mz.us-east-2.rds.amazonaws.com' " + \
+                  "password='eenaeena'"
 
 @app.route('/customers', methods=['GET'])
 def customers():
     try:
-        result = json.dumps(_call_customers)
-        r = make_response(result)
-    except Exception as err:
-        print(err)
-        r = make_response("Empty list.")
+        conn = psycopg2.connect(connect_str)
+        cursor = conn.cursor()
+        cursor.execute("""select * from call_customer""")
+        rows = cursor.fetchall()
+        r = make_response(rows)
+    except Exception as e:
+        r = make_response("Error connecting to database")
+        print("Uh oh, can't connect. Invalid dbname, user or password?")
+        print(e)
+        
     r.headers['Content-Type'] = 'application/json'
     return r
 
@@ -109,8 +116,9 @@ def makeWebhookResult(req):
     if req.get("result").get("action") == "call-customer":
         result = req.get("result")
         parameters = result.get("parameters")
-        print(parameters)
-        _call_customers.append(parameters)
+        
+        #insert to postgres far, at aws
+        _insert_customer_to_postgres(parameters)
         
         speech = "We will contact you shortly."
         return {
@@ -123,6 +131,26 @@ def makeWebhookResult(req):
         
     return {}
 
+def _insert_customer_to_postgres(parameters):
+    customer_name = parameters.get("customer-name")
+    customer_nric = parameters.get("customer-nric")
+    customer_mobile = parameters.get("customer-mobile")
+    customer_email = parameters.get("customer-email")
+    plan_chosen = parameters.get("customer-plan")
+    sql = """INSERT INTO call_customer values ('{}','{}','{}','{}','{}')""".format(customer_name, customer_mobile, customer_email, plan_chosen, customer_nric)
+
+    try:
+        conn = psycopg2.connect(_connect_str)
+        cursor = conn.cursor()
+        cursor.execute(sql)
+        conn.commit()
+        cursor.close()
+    except Exception as e:
+        print("Uh oh, can't connect. Invalid dbname, user or password?")
+        print(e)
+    finally:
+        if conn is not None:
+            conn.close()
 
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
