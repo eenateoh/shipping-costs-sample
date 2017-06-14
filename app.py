@@ -12,16 +12,23 @@ from flask import make_response
 # Flask app should start in global layout
 app = Flask(__name__)
 
-_call_customers = []
+_connect_str = "dbname='customer' user='eena' port='5432'"+\
+    "host='chatbotdbinstance.c6gisnki06mz.us-east-2.rds.amazonaws.com' " + \
+                  "password='eenaeena'"
 
 @app.route('/customers', methods=['GET'])
 def customers():
     try:
-        result = json.dumps(_call_customers)
-        r = make_response(result)
-    except Exception as err:
-        print(err)
-        r = make_response("Empty list.")
+        conn = psycopg2.connect(_connect_str)
+        cursor = conn.cursor()
+        cursor.execute("""select * from call_customer""")
+        rows = cursor.fetchall()
+        r = make_response(rows)
+    except Exception as e:
+        r = make_response("Error connecting to database")
+        print("Uh oh, can't connect. Invalid dbname, user or password?")
+        print(e)
+        
     r.headers['Content-Type'] = 'application/json'
     return r
 
@@ -111,9 +118,8 @@ def makeWebhookResult(req):
         parameters = result.get("parameters")
         
         #insert to postgres far, at aws
-        #_insert_customer_to_postgres(parameters)
+        _insert_customer_to_postgres(parameters)
         
-        _call_customers.append(parameters)
         speech = "We will contact you shortly."
         return {
             "speech": speech,
@@ -149,5 +155,4 @@ if __name__ == '__main__':
     print "Starting app on port %d" % port
 
     app.run(debug=True, port=port, host='0.0.0.0')
-
 
