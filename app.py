@@ -139,7 +139,7 @@ def _insert_customer_to_postgres(parameters):
     customer_email = parameters.get("customer-email")
     plan_chosen = parameters.get("customer-plan")
     sql = """INSERT INTO call_customer values ('{}','{}','{}','{}','{}')""".format(customer_name, customer_mobile, customer_email, plan_chosen, customer_nric)
-
+    print(sql)
     try:
         conn = psycopg2.connect(_connect_str)
         cursor = conn.cursor()
