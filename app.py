@@ -13,8 +13,8 @@ from flask import make_response
 app = Flask(__name__)
 
 _connect_str = "dbname='customer' user='eena' port='5432'"+\
-    "host='chatbotdbinstance.c6gisnki06mz.us-east-2.rds.amazonaws.com' " + \
-                  "password='eenaeena'"
+        "host='chatbotdbinstance.c6gisnki06mz.us-east-2.rds.amazonaws.com' " + \
+                      "password='eenaeena'"
 
 @app.route('/customers', methods=['GET'])
 def customers():
