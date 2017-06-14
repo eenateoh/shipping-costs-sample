@@ -12,9 +12,9 @@ from flask import make_response
 # Flask app should start in global layout
 app = Flask(__name__)
 
-_connect_str = "dbname='customer' user='eena' port='5432'"+\
-        "host='chatbotdbinstance.c6gisnki06mz.us-east-2.rds.amazonaws.com' " + \
-                      "password='eenaeena'"
+_connect_str = "dbname='maxisbot' user='eena' port='5432'"+\
+    "host='chatbot.cd5cndsalza5.ap-southeast-1.rds.amazonaws.com' " + \
+                  "password='eenaeena'"
 
 @app.route('/customers', methods=['GET'])
 def customers():
