@@ -23,7 +23,8 @@ def customers():
         cursor = conn.cursor()
         cursor.execute("""select * from call_customer""")
         rows = cursor.fetchall()
-        r = make_response(rows)
+        jsonrows = json.dumps(rows)
+        r = make_response(jsonrows)
     except Exception as e:
         r = make_response("Error connecting to database")
         print("Uh oh, can't connect. Invalid dbname, user or password?")
